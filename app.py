@@ -822,8 +822,6 @@ def main():
         div[data-testid="stMarkdown"]:has(#find-btn-anchor)
           + div[data-testid="stButton"] {
           margin-top: 16px;
-          width: 100% !important;
-          max-width: none !important;
           display: flex !important;
           justify-content: center !important;
         }
@@ -832,10 +830,8 @@ def main():
           + div[data-testid="stButton"] button,
         div[data-testid="stMarkdown"]:has(#find-btn-anchor)
           + div[data-testid="stButton"] button {
-          width: 100% !important;
-          max-width: none !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
+          width: auto !important;
+          max-width: 100% !important;
           text-align: center !important;
         }
 
@@ -850,12 +846,19 @@ def main():
           letter-spacing: 0 !important;
         }
 
-        div[data-testid="stButton"] {
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"],
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] {
           width: 100% !important;
         }
 
-        div[data-testid="stButton"] button {
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button,
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
           width: 100% !important;
+          max-width: none !important;
         }
 
         button[data-testid*="baseButton-secondary"],
@@ -1218,13 +1221,7 @@ def main():
           box-shadow: 0 0 0 4px rgba(139,92,246,0.18) !important;
         }
 
-        .stButton {
-          width: 100% !important;
-        }
-
         .stButton button {
-          width: 100% !important;
-          max-width: none !important;
           text-align: center !important;
         }
 
