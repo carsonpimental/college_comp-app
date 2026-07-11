@@ -824,6 +824,7 @@ def main():
           margin-top: 16px;
           display: flex !important;
           justify-content: center !important;
+          width: 100% !important;
         }
 
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
