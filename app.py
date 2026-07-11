@@ -822,9 +822,7 @@ def main():
         div[data-testid="stMarkdown"]:has(#find-btn-anchor)
           + div[data-testid="stButton"] {
           margin-top: 16px;
-          width: fit-content !important;
-          margin-left: auto !important;
-          margin-right: auto !important;
+          width: auto !important;
         }
 
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
@@ -834,6 +832,17 @@ def main():
           width: auto !important;
           max-width: 100% !important;
           text-align: center !important;
+        }
+
+        div[data-testid="stButton"]:has(button[aria-label="Find similar seasons"]) {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
+
+        div[data-testid="stButton"]:has(button[aria-label="Find similar seasons"]) button {
+          width: auto !important;
+          max-width: 100% !important;
         }
 
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
