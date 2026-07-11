@@ -827,6 +827,12 @@ def main():
           width: 100% !important;
         }
 
+        div[data-testid="stColumn"]:has(#find-btn-anchor) div[data-testid="stButton"] {
+          display: flex !important;
+          justify-content: center !important;
+          width: 100% !important;
+        }
+
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
           + div[data-testid="stButton"] button,
         div[data-testid="stMarkdown"]:has(#find-btn-anchor)
@@ -834,6 +840,11 @@ def main():
           width: auto !important;
           max-width: 100% !important;
           text-align: center !important;
+        }
+
+        div[data-testid="stColumn"]:has(#find-btn-anchor) div[data-testid="stButton"] button {
+          width: auto !important;
+          max-width: 100% !important;
         }
 
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
@@ -1558,8 +1569,10 @@ def main():
                 placeholder="Select conference" if hasattr(st, "selectbox") else None,
             )
 
-        st.markdown('<div id="find-btn-anchor"></div>', unsafe_allow_html=True)
-        find = st.button("Find similar seasons", type="primary")
+        find_l, find_c, find_r = st.columns([1, 2, 1])
+        with find_c:
+            st.markdown('<div id="find-btn-anchor"></div>', unsafe_allow_html=True)
+            find = st.button("Find similar seasons", type="primary")
 
         paste_map = None
         if find:
