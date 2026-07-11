@@ -5,8 +5,10 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-BATTING_PATH = r"C:\Users\cpim1\OneDrive\Documents\UCI Baseball\Baseball Projects\pimental_batting.csv"
-PITCHING_PATH = r"C:\Users\cpim1\OneDrive\Documents\UCI Baseball\Baseball Projects\pimental_pitching.csv"
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BATTING_PATH = os.path.join(BASE_DIR, "pimental_batting.csv")
+PITCHING_PATH = os.path.join(BASE_DIR, "pimental_pitching.csv")
 
 PASTE_FIELDS = [
     "ab",
