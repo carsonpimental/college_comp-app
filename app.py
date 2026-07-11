@@ -783,17 +783,24 @@ def main():
           transform: translateY(-50%);
         }
 
-        #input-anchor + div[data-testid="stVerticalBlock"] div[data-testid="stButton"] {
+        #find-btn-anchor + div[data-testid="stButton"] {
           margin-top: 16px;
+          width: 100% !important;
+          max-width: none !important;
         }
 
-        #input-anchor + div[data-testid="stVerticalBlock"] div[data-testid="stButton"] button {
-          font-size: 34px !important;
-          padding: 18px 14px !important;
-          letter-spacing: 0.10em !important;
-          line-height: 1.1 !important;
+        #find-btn-anchor + div[data-testid="stButton"] button {
           width: 100% !important;
+          max-width: none !important;
           text-align: center !important;
+        }
+
+        #find-btn-anchor + div[data-testid="stButton"] button p {
+          margin: 0 !important;
+          font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+          font-size: 20px !important;
+          font-weight: 800 !important;
+          letter-spacing: 0 !important;
         }
 
         div[data-testid="stButton"] {
@@ -1438,7 +1445,7 @@ def main():
             unsafe_allow_html=True,
         )
         st.markdown('<div class="field-label">Player name</div>', unsafe_allow_html=True)
-        name_c, hitter_c, pitcher_c = st.columns([8, 2, 2])
+        name_c, pills_c = st.columns([8, 4])
         with name_c:
             hitter_name = st.text_input("Hitter name", placeholder="e.g Jaxon Reeves", label_visibility="collapsed")
 
@@ -1447,21 +1454,23 @@ def main():
 
         current_type = st.session_state.get("player_type", "Hitter")
 
-        with hitter_c:
-            if st.button(
-                "Hitter",
-                key="player_type_btn_hitter",
-                type="primary" if current_type == "Hitter" else "secondary",
-            ):
-                st.session_state["player_type"] = "Hitter"
+        with pills_c:
+            hitter_c, pitcher_c = st.columns([1, 1], gap="small")
+            with hitter_c:
+                if st.button(
+                    "Hitter",
+                    key="player_type_btn_hitter",
+                    type="primary" if current_type == "Hitter" else "secondary",
+                ):
+                    st.session_state["player_type"] = "Hitter"
 
-        with pitcher_c:
-            if st.button(
-                "Pitcher",
-                key="player_type_btn_pitcher",
-                type="primary" if current_type == "Pitcher" else "secondary",
-            ):
-                st.session_state["player_type"] = "Pitcher"
+            with pitcher_c:
+                if st.button(
+                    "Pitcher",
+                    key="player_type_btn_pitcher",
+                    type="primary" if current_type == "Pitcher" else "secondary",
+                ):
+                    st.session_state["player_type"] = "Pitcher"
 
         player_type = st.session_state.get("player_type", "Hitter")
 
@@ -1503,6 +1512,7 @@ def main():
                 placeholder="Select conference" if hasattr(st, "selectbox") else None,
             )
 
+        st.markdown('<div id="find-btn-anchor"></div>', unsafe_allow_html=True)
         find = st.button("Find similar seasons", type="primary")
 
         paste_map = None
