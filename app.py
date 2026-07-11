@@ -796,18 +796,16 @@ def main():
           text-align: center !important;
         }
 
-        .player-type-toggle {
-          display: flex;
-          gap: 8px;
-          width: 100%;
-        }
-
-        .player-type-toggle div[data-testid="stButton"] {
-          flex: 1 1 0%;
-        }
-
-        .player-type-toggle div[data-testid="stButton"] button {
+        div[data-testid="stButton"] {
           width: 100% !important;
+        }
+
+        div[data-testid="stButton"] button {
+          width: 100% !important;
+        }
+
+        button[data-testid*="baseButton-secondary"],
+        button[kind="secondary"] {
           min-height: 44px !important;
           height: 44px !important;
           border-radius: 13px !important;
@@ -820,7 +818,8 @@ def main():
           justify-content: center !important;
         }
 
-        .player-type-toggle div[data-testid="stButton"] button p {
+        button[data-testid*="baseButton-secondary"] p,
+        button[kind="secondary"] p {
           margin: 0 !important;
           font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
           font-size: 16px !important;
@@ -829,15 +828,28 @@ def main():
           letter-spacing: 0 !important;
         }
 
-        .player-type-toggle div[data-testid="stButton"].selected button {
+        button[data-testid*="baseButton-primary"],
+        button[kind="primary"] {
+          min-height: 44px !important;
+          height: 44px !important;
+          border-radius: 13px !important;
+          padding: 13px 20px !important;
           background: linear-gradient(150deg, #c4a6ff, #8b5cf6) !important;
           border: 0 !important;
           box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45) !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
         }
 
-        .player-type-toggle div[data-testid="stButton"].selected button p {
-          color: #1a0f30 !important;
+        button[data-testid*="baseButton-primary"] p,
+        button[kind="primary"] p {
+          margin: 0 !important;
+          font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+          font-size: 16px !important;
           font-weight: 800 !important;
+          color: #f4f1fa !important;
+          letter-spacing: 0 !important;
         }
 
         #input-anchor + div[data-testid="stVerticalBlock"] div[data-testid="stToggle"] {
@@ -1426,44 +1438,32 @@ def main():
             unsafe_allow_html=True,
         )
         st.markdown('<div class="field-label">Player name</div>', unsafe_allow_html=True)
-        name_l, name_r = st.columns([6, 6])
-        with name_l:
+        name_c, hitter_c, pitcher_c = st.columns([8, 2, 2])
+        with name_c:
             hitter_name = st.text_input("Hitter name", placeholder="e.g Jaxon Reeves", label_visibility="collapsed")
-        with name_r:
-            if "player_type" not in st.session_state:
+
+        if "player_type" not in st.session_state:
+            st.session_state["player_type"] = "Hitter"
+
+        current_type = st.session_state.get("player_type", "Hitter")
+
+        with hitter_c:
+            if st.button(
+                "Hitter",
+                key="player_type_btn_hitter",
+                type="primary" if current_type == "Hitter" else "secondary",
+            ):
                 st.session_state["player_type"] = "Hitter"
 
-            current_type = st.session_state.get("player_type", "Hitter")
+        with pitcher_c:
+            if st.button(
+                "Pitcher",
+                key="player_type_btn_pitcher",
+                type="primary" if current_type == "Pitcher" else "secondary",
+            ):
+                st.session_state["player_type"] = "Pitcher"
 
-            st.markdown(
-                '<div class="player-type-toggle">',
-                unsafe_allow_html=True,
-            )
-
-            t1, t2 = st.columns(2)
-            with t1:
-                st.markdown(
-                    '<div class="' + ("selected" if current_type == "Hitter" else "") + '">',
-                    unsafe_allow_html=True,
-                )
-                if st.button("Hitter", key="player_type_btn_hitter"):
-                    st.session_state["player_type"] = "Hitter"
-                st.markdown("</div>", unsafe_allow_html=True)
-            with t2:
-                st.markdown(
-                    '<div class="' + ("selected" if current_type == "Pitcher" else "") + '">',
-                    unsafe_allow_html=True,
-                )
-                if st.button("Pitcher", key="player_type_btn_pitcher"):
-                    st.session_state["player_type"] = "Pitcher"
-                st.markdown("</div>", unsafe_allow_html=True)
-
-            st.markdown(
-                "</div>",
-                unsafe_allow_html=True,
-            )
-
-            player_type = st.session_state.get("player_type", "Hitter")
+        player_type = st.session_state.get("player_type", "Hitter")
 
         active_confs = conferences_batting if player_type == "Hitter" else conferences_pitching
         st.markdown('<div class="field-label">Paste season statline</div>', unsafe_allow_html=True)
