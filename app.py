@@ -783,35 +783,38 @@ def main():
           transform: translateY(-50%);
         }
 
-        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
           + div[data-testid="stHorizontalBlock"],
-        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
           + div[data-testid="stHorizontalBlock"] {
           display: flex !important;
           gap: 8px !important;
+          width: 100% !important;
         }
 
-        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
           + div[data-testid="stHorizontalBlock"] > div,
-        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
           + div[data-testid="stHorizontalBlock"] > div {
-          flex: 1 1 0 !important;
           min-width: 0 !important;
         }
 
-        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
-          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"],
-        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
-          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] {
-          width: 100% !important;
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div:nth-child(1),
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div:nth-child(1) {
+          flex: 2 1 0% !important;
         }
 
-        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
-          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button,
-        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
-          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
-          width: 100% !important;
-          max-width: none !important;
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div:nth-child(2),
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div:nth-child(2),
+        div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div:nth-child(3),
+        div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div:nth-child(3) {
+          flex: 1 1 0% !important;
         }
 
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
@@ -1482,7 +1485,8 @@ def main():
             unsafe_allow_html=True,
         )
         st.markdown('<div class="field-label">Player name</div>', unsafe_allow_html=True)
-        name_c, pills_c = st.columns([8, 4])
+        st.markdown('<div id="name-pill-row-anchor"></div>', unsafe_allow_html=True)
+        name_c, hitter_c, pitcher_c = st.columns([8, 2, 2])
         with name_c:
             hitter_name = st.text_input("Hitter name", placeholder="e.g Jaxon Reeves", label_visibility="collapsed")
 
@@ -1491,24 +1495,21 @@ def main():
 
         current_type = st.session_state.get("player_type", "Hitter")
 
-        with pills_c:
-            st.markdown('<div id="pill-row-anchor"></div>', unsafe_allow_html=True)
-            hitter_c, pitcher_c = st.columns([1, 1], gap="small")
-            with hitter_c:
-                if st.button(
-                    "Hitter",
-                    key="player_type_btn_hitter",
-                    type="primary" if current_type == "Hitter" else "secondary",
-                ):
-                    st.session_state["player_type"] = "Hitter"
+        with hitter_c:
+            if st.button(
+                "Hitter",
+                key="player_type_btn_hitter",
+                type="primary" if current_type == "Hitter" else "secondary",
+            ):
+                st.session_state["player_type"] = "Hitter"
 
-            with pitcher_c:
-                if st.button(
-                    "Pitcher",
-                    key="player_type_btn_pitcher",
-                    type="primary" if current_type == "Pitcher" else "secondary",
-                ):
-                    st.session_state["player_type"] = "Pitcher"
+        with pitcher_c:
+            if st.button(
+                "Pitcher",
+                key="player_type_btn_pitcher",
+                type="primary" if current_type == "Pitcher" else "secondary",
+            ):
+                st.session_state["player_type"] = "Pitcher"
 
         player_type = st.session_state.get("player_type", "Hitter")
 
