@@ -824,6 +824,8 @@ def main():
           margin-top: 16px;
           width: 100% !important;
           max-width: none !important;
+          display: flex !important;
+          justify-content: center !important;
         }
 
         div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
@@ -832,6 +834,8 @@ def main():
           + div[data-testid="stButton"] button {
           width: 100% !important;
           max-width: none !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
           text-align: center !important;
         }
 
@@ -1493,23 +1497,28 @@ def main():
         if "player_type" not in st.session_state:
             st.session_state["player_type"] = "Hitter"
 
+        def _set_player_type(pt: str) -> None:
+            st.session_state["player_type"] = pt
+
         current_type = st.session_state.get("player_type", "Hitter")
 
         with hitter_c:
-            if st.button(
+            st.button(
                 "Hitter",
                 key="player_type_btn_hitter",
                 type="primary" if current_type == "Hitter" else "secondary",
-            ):
-                st.session_state["player_type"] = "Hitter"
+                on_click=_set_player_type,
+                args=("Hitter",),
+            )
 
         with pitcher_c:
-            if st.button(
+            st.button(
                 "Pitcher",
                 key="player_type_btn_pitcher",
                 type="primary" if current_type == "Pitcher" else "secondary",
-            ):
-                st.session_state["player_type"] = "Pitcher"
+                on_click=_set_player_type,
+                args=("Pitcher",),
+            )
 
         player_type = st.session_state.get("player_type", "Hitter")
 
