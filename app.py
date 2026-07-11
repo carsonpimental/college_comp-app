@@ -783,19 +783,59 @@ def main():
           transform: translateY(-50%);
         }
 
-        #find-btn-anchor + div[data-testid="stButton"] {
+        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"],
+        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] {
+          display: flex !important;
+          gap: 8px !important;
+        }
+
+        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div,
+        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] > div {
+          flex: 1 1 0 !important;
+          min-width: 0 !important;
+        }
+
+        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"],
+        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] {
+          width: 100% !important;
+        }
+
+        div[data-testid="stMarkdownContainer"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button,
+        div[data-testid="stMarkdown"]:has(#pill-row-anchor)
+          + div[data-testid="stHorizontalBlock"] div[data-testid="stButton"] button {
+          width: 100% !important;
+          max-width: none !important;
+        }
+
+        div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
+          + div[data-testid="stButton"],
+        div[data-testid="stMarkdown"]:has(#find-btn-anchor)
+          + div[data-testid="stButton"] {
           margin-top: 16px;
           width: 100% !important;
           max-width: none !important;
         }
 
-        #find-btn-anchor + div[data-testid="stButton"] button {
+        div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
+          + div[data-testid="stButton"] button,
+        div[data-testid="stMarkdown"]:has(#find-btn-anchor)
+          + div[data-testid="stButton"] button {
           width: 100% !important;
           max-width: none !important;
           text-align: center !important;
         }
 
-        #find-btn-anchor + div[data-testid="stButton"] button p {
+        div[data-testid="stMarkdownContainer"]:has(#find-btn-anchor)
+          + div[data-testid="stButton"] button p,
+        div[data-testid="stMarkdown"]:has(#find-btn-anchor)
+          + div[data-testid="stButton"] button p {
           margin: 0 !important;
           font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
           font-size: 20px !important;
@@ -1171,26 +1211,23 @@ def main():
           box-shadow: 0 0 0 4px rgba(139,92,246,0.18) !important;
         }
 
+        .stButton {
+          width: 100% !important;
+        }
+
         .stButton button {
           width: 100% !important;
-          border-radius: 13px;
-          padding: 14px;
-          border: 0;
-          font-weight: 800;
-          font-size: 15.5px;
-          color: #1a0f30;
-          background: linear-gradient(150deg, #c4a6ff, #8b5cf6);
-          box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45);
+          max-width: none !important;
           text-align: center !important;
         }
 
         .stButton button p {
-          font-size: 24px !important;
-          font-weight: 800 !important;
-          color: #f4f1fa !important;
-          letter-spacing: 0.06em !important;
-          line-height: 1.15 !important;
           margin: 0 !important;
+          font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+          font-size: 16px !important;
+          font-weight: 800 !important;
+          letter-spacing: 0 !important;
+          line-height: 1.15 !important;
         }
 
         .stButton button:hover {
@@ -1455,6 +1492,7 @@ def main():
         current_type = st.session_state.get("player_type", "Hitter")
 
         with pills_c:
+            st.markdown('<div id="pill-row-anchor"></div>', unsafe_allow_html=True)
             hitter_c, pitcher_c = st.columns([1, 1], gap="small")
             with hitter_c:
                 if st.button(
