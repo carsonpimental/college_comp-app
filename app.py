@@ -1,14 +1,28 @@
 import math
+import os
 from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
 import streamlit as st
 
-import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-BATTING_PATH = os.path.join(BASE_DIR, "pimental_batting.csv")
-PITCHING_PATH = os.path.join(BASE_DIR, "pimental_pitching.csv")
+
+
+def _resolve_data_path(filename: str) -> str:
+    candidates = [
+        os.path.join(BASE_DIR, filename),
+        os.path.join(os.getcwd(), filename),
+        os.path.join(os.path.dirname(BASE_DIR), filename),
+    ]
+    for p in candidates:
+        if os.path.exists(p):
+            return p
+    return candidates[0]
+
+
+BATTING_PATH = _resolve_data_path("pimental_batting.csv")
+PITCHING_PATH = _resolve_data_path("pimental_pitching.csv")
 
 PASTE_FIELDS = [
     "ab",
@@ -217,12 +231,38 @@ def _fmt_num(x, display_field: str | None = None) -> str:
 
 @st.cache_data(show_spinner=False)
 def load_batting(path: str) -> pd.DataFrame:
+    if not os.path.exists(path):
+        st.error(
+            "Batting CSV not found. "
+            + f"path={path} | BASE_DIR={BASE_DIR} | CWD={os.getcwd()}"
+        )
+        try:
+            st.write("BASE_DIR contents", os.listdir(BASE_DIR))
+        except Exception:
+            pass
+        try:
+            st.write("CWD contents", os.listdir(os.getcwd()))
+        except Exception:
+            pass
     df = pd.read_csv(path)
     return df
 
 
 @st.cache_data(show_spinner=False)
 def load_pitching(path: str) -> pd.DataFrame:
+    if not os.path.exists(path):
+        st.error(
+            "Pitching CSV not found. "
+            + f"path={path} | BASE_DIR={BASE_DIR} | CWD={os.getcwd()}"
+        )
+        try:
+            st.write("BASE_DIR contents", os.listdir(BASE_DIR))
+        except Exception:
+            pass
+        try:
+            st.write("CWD contents", os.listdir(os.getcwd()))
+        except Exception:
+            pass
     df = pd.read_csv(path)
     return df
 
@@ -840,19 +880,24 @@ def main():
         #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] {
           flex: 1 1 0% !important;
           margin: 0 !important;
-          border-radius: 13px !important;
-          padding: 13px 20px !important;
-          background: #0c0714 !important;
-          border: 1px solid rgba(255,255,255,0.08) !important;
+          cursor: pointer !important;
+        }
+
+        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div {
           display: flex !important;
           justify-content: center !important;
           align-items: center !important;
           min-height: 44px !important;
           height: 44px !important;
-          cursor: pointer !important;
+          border-radius: 13px !important;
+          padding: 13px 20px !important;
+          background: #0c0714 !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
+          box-sizing: border-box !important;
+          width: 100% !important;
         }
 
-        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div:first-of-type {
+        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div > div:first-of-type {
           display: none !important;
         }
 
@@ -864,12 +909,13 @@ def main():
           margin: 0 !important;
         }
 
-        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) {
+        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] input:checked + div {
           background: linear-gradient(150deg, #c4a6ff, #8b5cf6) !important;
           border: 0 !important;
+          box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45) !important;
         }
 
-        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) p {
+        #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] input:checked + div p {
           color: #1a0f30 !important;
           font-weight: 800 !important;
         }
@@ -894,20 +940,24 @@ def main():
         .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] {
           flex: 1 1 0% !important;
           margin: 0 !important;
-          border-radius: 13px !important;
-          padding: 13px 20px !important;
-          background: #0c0714 !important;
-          border: 1px solid rgba(255,255,255,0.08) !important;
+          cursor: pointer !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div {
           display: flex !important;
           justify-content: center !important;
           align-items: center !important;
           min-height: 44px !important;
           height: 44px !important;
-          cursor: pointer !important;
+          border-radius: 13px !important;
+          padding: 13px 20px !important;
+          background: #0c0714 !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
           box-sizing: border-box !important;
+          width: 100% !important;
         }
 
-        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div:first-of-type {
+        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div > div:first-of-type {
           display: none !important;
         }
 
@@ -919,13 +969,13 @@ def main():
           margin: 0 !important;
         }
 
-        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) {
+        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] input:checked + div {
           background: linear-gradient(150deg, #c4a6ff, #8b5cf6) !important;
           border: 0 !important;
           box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45) !important;
         }
 
-        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) p {
+        .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] input:checked + div p {
           color: #1a0f30 !important;
           font-weight: 800 !important;
         }
