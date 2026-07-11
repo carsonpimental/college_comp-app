@@ -792,6 +792,52 @@ def main():
           padding: 18px 14px !important;
           letter-spacing: 0.10em !important;
           line-height: 1.1 !important;
+          width: 100% !important;
+          text-align: center !important;
+        }
+
+        .player-type-toggle {
+          display: flex;
+          gap: 8px;
+          width: 100%;
+        }
+
+        .player-type-toggle div[data-testid="stButton"] {
+          flex: 1 1 0%;
+        }
+
+        .player-type-toggle div[data-testid="stButton"] button {
+          width: 100% !important;
+          min-height: 44px !important;
+          height: 44px !important;
+          border-radius: 13px !important;
+          padding: 13px 20px !important;
+          background: #0c0714 !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
+          box-shadow: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+
+        .player-type-toggle div[data-testid="stButton"] button p {
+          margin: 0 !important;
+          font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+          font-size: 16px !important;
+          font-weight: 700 !important;
+          color: #a89bc4 !important;
+          letter-spacing: 0 !important;
+        }
+
+        .player-type-toggle div[data-testid="stButton"].selected button {
+          background: linear-gradient(150deg, #c4a6ff, #8b5cf6) !important;
+          border: 0 !important;
+          box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45) !important;
+        }
+
+        .player-type-toggle div[data-testid="stButton"].selected button p {
+          color: #1a0f30 !important;
+          font-weight: 800 !important;
         }
 
         #input-anchor + div[data-testid="stVerticalBlock"] div[data-testid="stToggle"] {
@@ -881,6 +927,7 @@ def main():
           flex: 1 1 0% !important;
           margin: 0 !important;
           cursor: pointer !important;
+          width: 100% !important;
         }
 
         #input-anchor ~ div[data-testid="stVerticalBlock"] div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div {
@@ -941,6 +988,7 @@ def main():
           flex: 1 1 0% !important;
           margin: 0 !important;
           cursor: pointer !important;
+          width: 100% !important;
         }
 
         .stApp div[data-testid="stRadio"] div[role="radiogroup"] label[data-baseweb="radio"] > div {
@@ -988,6 +1036,70 @@ def main():
           height: 1px !important;
           overflow: hidden !important;
           clip: rect(0 0 0 0) !important;
+        }
+
+        /* Streamlit Cloud (newer DOM): stRadioGroup / React Aria */
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] {
+          display: flex !important;
+          width: 100% !important;
+          gap: 8px !important;
+          align-items: center !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] [role="radio"],
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] label {
+          flex: 1 1 0% !important;
+          width: 100% !important;
+          min-height: 44px !important;
+          height: 44px !important;
+          border-radius: 13px !important;
+          padding: 13px 20px !important;
+          background: #0c0714 !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
+          box-sizing: border-box !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+          cursor: pointer !important;
+          gap: 10px !important;
+          user-select: none !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] [role="radio"] svg,
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] label svg,
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] input[type="radio"] {
+          display: none !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] [role="radio"] *,
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] label * {
+          font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+          font-size: 16px !important;
+          font-weight: 700 !important;
+          color: #a89bc4 !important;
+          margin: 0 !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] [role="radio"][aria-checked="true"] {
+          background: linear-gradient(150deg, #c4a6ff, #8b5cf6) !important;
+          border: 0 !important;
+          box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45) !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] [role="radio"][aria-checked="true"] * {
+          color: #1a0f30 !important;
+          font-weight: 800 !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] label:has(input:checked) {
+          background: linear-gradient(150deg, #c4a6ff, #8b5cf6) !important;
+          border: 0 !important;
+          box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45) !important;
+        }
+
+        .stApp div[data-testid="stRadio"] div[data-testid="stRadioGroup"][role="radiogroup"] label:has(input:checked) * {
+          color: #1a0f30 !important;
+          font-weight: 800 !important;
         }
 
         .stTextInput label, .stTextArea label { display: none; }
@@ -1041,7 +1153,7 @@ def main():
         }
 
         .stButton button {
-          width: 100%;
+          width: 100% !important;
           border-radius: 13px;
           padding: 14px;
           border: 0;
@@ -1050,6 +1162,7 @@ def main():
           color: #1a0f30;
           background: linear-gradient(150deg, #c4a6ff, #8b5cf6);
           box-shadow: 0 12px 28px -10px rgba(139,92,246,0.6), inset 0 1px 0 rgba(255,255,255,0.45);
+          text-align: center !important;
         }
 
         .stButton button p {
@@ -1317,13 +1430,40 @@ def main():
         with name_l:
             hitter_name = st.text_input("Hitter name", placeholder="e.g Jaxon Reeves", label_visibility="collapsed")
         with name_r:
-            player_type = st.radio(
-                "Player type",
-                options=["Hitter", "Pitcher"],
-                horizontal=True,
-                key="player_type",
-                label_visibility="collapsed",
+            if "player_type" not in st.session_state:
+                st.session_state["player_type"] = "Hitter"
+
+            current_type = st.session_state.get("player_type", "Hitter")
+
+            st.markdown(
+                '<div class="player-type-toggle">',
+                unsafe_allow_html=True,
             )
+
+            t1, t2 = st.columns(2)
+            with t1:
+                st.markdown(
+                    '<div class="' + ("selected" if current_type == "Hitter" else "") + '">',
+                    unsafe_allow_html=True,
+                )
+                if st.button("Hitter", key="player_type_btn_hitter"):
+                    st.session_state["player_type"] = "Hitter"
+                st.markdown("</div>", unsafe_allow_html=True)
+            with t2:
+                st.markdown(
+                    '<div class="' + ("selected" if current_type == "Pitcher" else "") + '">',
+                    unsafe_allow_html=True,
+                )
+                if st.button("Pitcher", key="player_type_btn_pitcher"):
+                    st.session_state["player_type"] = "Pitcher"
+                st.markdown("</div>", unsafe_allow_html=True)
+
+            st.markdown(
+                "</div>",
+                unsafe_allow_html=True,
+            )
+
+            player_type = st.session_state.get("player_type", "Hitter")
 
         active_confs = conferences_batting if player_type == "Hitter" else conferences_pitching
         st.markdown('<div class="field-label">Paste season statline</div>', unsafe_allow_html=True)
