@@ -687,6 +687,15 @@ def main():
           text-align: center;
         }
 
+        .perf-sub {
+          margin-top: 4px;
+          font-size: 13px;
+          font-weight: 700;
+          color: rgba(168, 155, 196, 0.95);
+          font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          white-space: nowrap;
+        }
+
         .perf-num {
           text-align: center;
           font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -1552,6 +1561,10 @@ def main():
             display: none;
           }
 
+          .perf-sub {
+            font-size: 12px;
+          }
+
           table.comp {
             font-size: 14px;
           }
@@ -1819,7 +1832,7 @@ def main():
 
                 rows_html += (
                     f'<tr class="{tr_class}">'
-                    f'<td><div class="perf-name">{m.name}</div></td>'
+                    f'<td><div class="perf-name">{m.name}</div><div class="perf-sub">{m.year} · Rd {draft_round}, Pick {pick}</div></td>'
                     f'<td class="perf-num">{position or "—"}</td>'
                     f'<td class="perf-num">{school or "—"}</td>'
                     f'<td class="perf-num">{m.year}</td>'
