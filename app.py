@@ -353,6 +353,10 @@ def main():
           color: #f4f1fa;
         }
 
+        html, body {
+          overflow-x: hidden;
+        }
+
         .stApp {
           background: linear-gradient(135deg, #120a1f 0%, #0a0712 45%, #060409 100%);
         }
@@ -363,6 +367,7 @@ def main():
           padding-bottom: 28px;
           padding-left: 18px;
           padding-right: 18px;
+          overflow-x: hidden;
         }
 
         h1, h2, h3 {
@@ -623,10 +628,19 @@ def main():
           border-bottom: 1px solid rgba(255,255,255,0.07);
         }
 
-        .perf-table-wrap { padding: 12px 18px 16px; }
+        .perf-table-wrap {
+          padding: 12px 18px 16px;
+          width: 100%;
+          max-width: 100%;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          box-sizing: border-box;
+        }
 
         table.perf {
-          width: 100%;
+          width: max-content;
+          min-width: 100%;
           border-collapse: separate;
           border-spacing: 0 12px;
         }
@@ -1501,6 +1515,43 @@ def main():
             font-size: 17px !important;
           }
 
+          .table-wrap,
+          .perf-table-wrap {
+            position: relative;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .table-wrap::after,
+          .perf-table-wrap::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 26px;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to right, rgba(6,4,9,0), rgba(6,4,9,0.95));
+          }
+
+          table.perf {
+            width: max-content;
+            min-width: 100%;
+          }
+
+          table.perf thead th:nth-child(2),
+          table.perf tbody td:nth-child(2),
+          table.perf thead th:nth-child(4),
+          table.perf tbody td:nth-child(4),
+          table.perf thead th:nth-child(5),
+          table.perf tbody td:nth-child(5),
+          table.perf thead th:nth-child(6),
+          table.perf tbody td:nth-child(6) {
+            display: none;
+          }
+
           table.comp {
             font-size: 14px;
           }
@@ -1880,4 +1931,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
