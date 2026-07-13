@@ -632,15 +632,12 @@ def main():
           padding: 12px 18px 16px;
           width: 100%;
           max-width: 100%;
-          overflow-x: auto;
-          overflow-y: hidden;
-          -webkit-overflow-scrolling: touch;
+          overflow: hidden;
           box-sizing: border-box;
         }
 
         table.perf {
-          width: max-content;
-          min-width: 100%;
+          width: 100%;
           border-collapse: separate;
           border-spacing: 0 12px;
         }
@@ -657,8 +654,8 @@ def main():
           border: 0;
         }
 
-        table.perf thead th.num { text-align: center; }
-        table.perf thead th.pct { text-align: center; color: #c4a6ff; }
+        table.perf thead th.player { text-align: left; padding-left: 14px; }
+        table.perf thead th.pct { text-align: right; color: #c4a6ff; padding-right: 14px; }
 
         table.perf tbody tr {
           background: rgba(255,255,255,0.025);
@@ -669,49 +666,53 @@ def main():
         }
 
         table.perf tbody td {
-          padding: 14px 10px;
+          padding: 14px 16px;
           vertical-align: middle;
           border: 0;
-          text-align: center;
+          border-left: 0 !important;
+          border-right: 0 !important;
           font-size: 18px;
         }
 
-        table.perf tbody td:first-child {
-          padding-left: 14px;
+        table.perf tbody td.player {
+          text-align: left;
         }
 
-        .perf-name {
-          font-size: 18px;
-          font-weight: 800;
-          line-height: 1.15;
-          text-align: center;
-        }
-
-        .perf-sub {
-          margin-top: 4px;
-          font-size: 13px;
-          font-weight: 700;
-          color: rgba(168, 155, 196, 0.95);
-          font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-          white-space: nowrap;
-        }
-
-        .perf-num {
-          text-align: center;
-          font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-          font-weight: 700;
-          font-size: 18px;
-          color: rgba(226, 221, 240, 0.86);
-          white-space: nowrap;
-        }
-
-        .perf-pct {
+        table.perf tbody td.pct {
           text-align: right;
           font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
           font-weight: 800;
-          font-size: 18px;
           white-space: nowrap;
           color: #c4a6ff;
+        }
+
+        table.perf tbody tr.top td.pct {
+          color: #c4a6ff;
+        }
+
+        .perf-player {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-height: 54px;
+          justify-content: center;
+        }
+
+        .perf-player .name {
+          font-size: 18px;
+          font-weight: 800;
+          line-height: 1.15;
+          color: #f4f1fa;
+          font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+        .perf-player .meta,
+        .perf-player .school {
+          font-size: 12px;
+          font-weight: 700;
+          color: rgba(168, 155, 196, 0.95);
+          font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          line-height: 1.25;
         }
 
         #comp-anchor + div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlock"] { gap: 0px; }
@@ -1524,8 +1525,7 @@ def main():
             font-size: 17px !important;
           }
 
-          .table-wrap,
-          .perf-table-wrap {
+          .table-wrap {
             position: relative;
             max-width: 100%;
             overflow-x: auto;
@@ -1533,8 +1533,7 @@ def main():
             -webkit-overflow-scrolling: touch;
           }
 
-          .table-wrap::after,
-          .perf-table-wrap::after {
+          .table-wrap::after {
             content: "";
             position: absolute;
             top: 0;
@@ -1545,24 +1544,8 @@ def main():
             background: linear-gradient(to right, rgba(6,4,9,0), rgba(6,4,9,0.95));
           }
 
-          table.perf {
-            width: max-content;
-            min-width: 100%;
-          }
-
-          table.perf thead th:nth-child(2),
-          table.perf tbody td:nth-child(2),
-          table.perf thead th:nth-child(4),
-          table.perf tbody td:nth-child(4),
-          table.perf thead th:nth-child(5),
-          table.perf tbody td:nth-child(5),
-          table.perf thead th:nth-child(6),
-          table.perf tbody td:nth-child(6) {
-            display: none;
-          }
-
-          .perf-sub {
-            font-size: 12px;
+          .perf-player .name {
+            font-size: 16px;
           }
 
           table.comp {
@@ -1832,13 +1815,14 @@ def main():
 
                 rows_html += (
                     f'<tr class="{tr_class}">'
-                    f'<td><div class="perf-name">{m.name}</div><div class="perf-sub">{m.year} · Rd {draft_round}, Pick {pick}</div></td>'
-                    f'<td class="perf-num">{position or "—"}</td>'
-                    f'<td class="perf-num">{school or "—"}</td>'
-                    f'<td class="perf-num">{m.year}</td>'
-                    f'<td class="perf-num">{draft_round}</td>'
-                    f'<td class="perf-num">{pick}</td>'
-                    f'<td class="perf-pct">{pct_label}</td>'
+                    f'<td class="player">'
+                    f'<div class="perf-player">'
+                    f'<div class="name">{m.name}</div>'
+                    f'<div class="meta">{m.year} · Rd {draft_round}, Pick {pick}</div>'
+                    f'<div class="school">{school or "—"}</div>'
+                    f'</div>'
+                    f'</td>'
+                    f'<td class="pct">{pct_label}</td>'
                     f'</tr>'
                 )
 
@@ -1851,12 +1835,7 @@ def main():
                   <table class="perf">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th class="num">Position</th>
-                        <th class="num">School</th>
-                        <th class="num">Year</th>
-                        <th class="num">Round</th>
-                        <th class="num">Pick</th>
+                        <th class="player">Player</th>
                         <th class="pct">%-similar</th>
                       </tr>
                     </thead>
