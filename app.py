@@ -1422,6 +1422,127 @@ def main():
           .stat-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
+        @media (max-width: 640px) {
+          .block-container {
+            padding-top: 22px !important;
+            padding-left: 14px !important;
+            padding-right: 14px !important;
+          }
+
+          .app-title {
+            padding: 14px 14px;
+            margin: 4px 0 14px;
+          }
+
+          .app-title h1 {
+            font-size: 26px;
+          }
+
+          .app-subtitle {
+            font-size: 13px;
+            margin-top: 6px;
+          }
+
+          .app-desc {
+            font-size: 13px;
+            max-width: none;
+            line-height: 1.35;
+          }
+
+          .banner-ball {
+            display: none;
+          }
+
+          #input-anchor + div[data-testid="stVerticalBlock"] {
+            padding: 14px 14px;
+          }
+
+          #input-anchor + div[data-testid="stVerticalBlock"] .banner-head {
+            margin: -14px -14px 14px;
+          }
+
+          div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"],
+          div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+          }
+
+          div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] > div:nth-child(1),
+          div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] > div:nth-child(1) {
+            flex: 1 1 100% !important;
+          }
+
+          div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] > div:nth-child(2),
+          div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] > div:nth-child(2),
+          div[data-testid="stMarkdownContainer"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] > div:nth-child(3),
+          div[data-testid="stMarkdown"]:has(#name-pill-row-anchor)
+            + div[data-testid="stHorizontalBlock"] > div:nth-child(3) {
+            flex: 1 1 calc(50% - 4px) !important;
+          }
+
+          div[data-testid="stTextInput"] input {
+            font-size: 14px !important;
+          }
+
+          button[data-testid*="baseButton-secondary"] p,
+          button[kind="secondary"] p,
+          button[data-testid*="baseButton-primary"] p,
+          button[kind="primary"] p {
+            font-size: 15px !important;
+          }
+
+          div[data-testid="stButton"]:has(button[aria-label="Find similar seasons"]) button p {
+            font-size: 17px !important;
+          }
+
+          table.comp {
+            font-size: 14px;
+          }
+
+          table.comp thead th {
+            font-size: 12px;
+          }
+
+          .results-header {
+            grid-template-columns: 28px minmax(0, 1fr) 54px 54px 54px 54px;
+          }
+
+          .result-row {
+            grid-template-columns: 28px 1fr 54px 54px 54px 54px;
+            gap: 10px;
+            padding: 12px 12px;
+          }
+
+          .perf-table-wrap {
+            padding: 10px 14px 14px;
+          }
+
+          table.perf thead th,
+          table.perf tbody td,
+          .perf-name,
+          .perf-num,
+          .perf-pct {
+            font-size: 14px;
+          }
+
+          #comp-inline-anchor + div[data-testid="stVerticalBlock"] {
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+
+          #comp-inline-anchor + div[data-testid="stVerticalBlock"] div[data-testid="stSelectbox"] {
+            width: 100% !important;
+            max-width: none !important;
+            min-width: 0 !important;
+          }
+        }
+
         /* Make Streamlit dataframes match theme */
         div[data-testid="stDataFrame"] {
           border: 1px solid rgba(255,255,255,0.08);
