@@ -1501,6 +1501,43 @@ def main():
             font-size: 17px !important;
           }
 
+          .table-wrap,
+          .perf-table-wrap {
+            position: relative;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+          }
+
+          .table-wrap::after,
+          .perf-table-wrap::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 26px;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to right, rgba(6,4,9,0), rgba(6,4,9,0.95));
+          }
+
+          table.perf {
+            width: max-content;
+            min-width: 100%;
+          }
+
+          table.perf thead th:nth-child(2),
+          table.perf tbody td:nth-child(2),
+          table.perf thead th:nth-child(4),
+          table.perf tbody td:nth-child(4),
+          table.perf thead th:nth-child(5),
+          table.perf tbody td:nth-child(5),
+          table.perf thead th:nth-child(6),
+          table.perf tbody td:nth-child(6) {
+            display: none;
+          }
+
           table.comp {
             font-size: 14px;
           }
